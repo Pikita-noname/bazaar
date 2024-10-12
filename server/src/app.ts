@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import "reflect-metadata";
+
 import basketRouter from "./routes/basket";
 import orderRouter from "./routes/order";
 import userRouter from "./routes/user";

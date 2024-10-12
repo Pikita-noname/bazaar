@@ -1,27 +1,27 @@
 import express, { Request, Response } from "express";
 
-let router = express.Router();
+import { container } from "../inversify.config";
+import { UserController } from "../controllers/UserController";
+import { UserService } from "../services/UserService";
+import UserRepository from "../repository/UserRepository";
 
-router.get("/", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.get("/:productId", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.post("/", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.post("/:productId", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.patch("/:productId", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.delete("/", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
-router.delete("/:productId", (request: Request, response: Response) => {
-  response.send("by NDK");
-});
+const router = express.Router();
+
+try {
+  const controller = container.get<UserController>(UserController);
+  // const controller = new UserController(new UserService(new UserRepository()));
+
+  router.get("/", (request: Request, response: Response) => {
+    controller.getUsers(request, response);
+  });
+  router.get("/:tg_id", (request: Request, response: Response) => {
+    controller.getUser(request, response);
+  });
+  router.post("/", (request: Request, response: Response) => {
+    controller.createUser(request, response);
+  });
+} catch (error) {
+  console.error("Failed to retrieve UserController from the container:", error);
+}
 
 export default router;
