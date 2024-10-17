@@ -1,9 +1,9 @@
-import { AddUserDTO } from "../repository/DTOs/addUserDTO";
+import { AddUserDTO } from "../../repository/DTOs/addUserDTO";
 
 export interface IUserRepository {
   create(fields: AddUserDTO): Promise<void>;
 
-  getAll(): Promise<any>;
+  all(): Promise<any>;
 
   get(id: number): Promise<any>;
 }

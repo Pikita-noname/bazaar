@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
-import { IUserRepository } from "../interfaces/IUserRepository";
-import { IUserService } from "../interfaces/IUserService";
+import { IUserRepository } from "../interfaces/repository/IUserRepository";
+import { IUserService } from "../interfaces/service/IUserService";
 import { AddUserDTO } from "../repository/DTOs/addUserDTO";
 import UserRepository from "../repository/UserRepository";
 
@@ -10,7 +10,7 @@ export class UserService implements IUserService {
     @inject("IUserRepository") private userRepository: IUserRepository
   ) {}
 
-  public async createUser(fields): Promise<void> {
+  public async createUser(fields: AddUserDTO): Promise<void> {
     await this.userRepository.create(fields);
   }
 
@@ -19,6 +19,6 @@ export class UserService implements IUserService {
   }
 
   public async getUsers(): Promise<any> {
-    await this.userRepository.getAll();
+    await this.userRepository.all();
   }
 }

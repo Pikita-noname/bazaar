@@ -1,8 +1,8 @@
 import { Container } from "inversify";
 import { UserService } from "./services/UserService";
 import { UserController } from "./controllers/UserController";
-import { IUserService } from "./interfaces/IUserService";
-import { IUserRepository } from "./interfaces/IUserRepository";
+import { IUserService } from "./interfaces/service/IUserService";
+import { IUserRepository } from "./interfaces/repository/IUserRepository";
 import UserRepository from "./repository/UserRepository";
 
 const container = new Container();

@@ -7,6 +7,7 @@ import basketRouter from "./routes/basket";
 import orderRouter from "./routes/order";
 import userRouter from "./routes/user";
 import reviewRouter from "./routes/review";
+import productRouter from "./routes/product";
 
 dotenv.config();
 
@@ -20,5 +21,6 @@ app.use("/basket", basketRouter);
 app.use("/order", orderRouter);
 app.use("/user", userRouter);
 app.use("/review", reviewRouter);
+app.use("/product", productRouter);
 
 app.listen(port, () => console.log(`Running on port ${port}`));

@@ -9,7 +9,6 @@ const router = express.Router();
 
 try {
   const controller = container.get<UserController>(UserController);
-  // const controller = new UserController(new UserService(new UserRepository()));
 
   router.get("/", (request: Request, response: Response) => {
     controller.getUsers(request, response);

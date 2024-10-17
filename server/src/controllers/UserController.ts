@@ -1,9 +1,8 @@
 import express, { Request, Response } from "express";
 import { inject, injectable } from "inversify";
-import { IUserService } from "../interfaces/IUserService";
 import { AddUserDTO } from "../repository/DTOs/addUserDTO";
-
-import { UserRole } from "../repository/enums/userRoles";
+import { IUserService } from "../interfaces/service/IUserService";
+import { UserRole } from "../enums/userRoles";
 
 @injectable()
 export class UserController {
