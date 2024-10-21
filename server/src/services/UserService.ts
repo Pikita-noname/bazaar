@@ -3,6 +3,7 @@ import { IUserRepository } from "../interfaces/repository/IUserRepository";
 import { IUserService } from "../interfaces/service/IUserService";
 import { AddUserDTO } from "../repository/DTOs/addUserDTO";
 import UserRepository from "../repository/UserRepository";
+import { User } from "src/models/User";
 
 @injectable()
 export class UserService implements IUserService {
@@ -11,14 +12,14 @@ export class UserService implements IUserService {
   ) {}
 
   public async createUser(fields: AddUserDTO): Promise<void> {
-    await this.userRepository.create(fields);
+    return await this.userRepository.create(fields);
   }
 
-  public async getUser(id: number): Promise<any> {
-    await this.userRepository.get(id);
+  public async getUser(id: number): Promise<User> {
+    return await this.userRepository.get(id);
   }
 
-  public async getUsers(): Promise<any> {
-    await this.userRepository.all();
+  public async getUsers(): Promise<User[]> {
+    return await this.userRepository.all();
   }
 }

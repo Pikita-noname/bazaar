@@ -34,7 +34,8 @@ export class UserController {
         return response.status(400).json({ message: "id must be a number" });
       }
 
-      await this.userService.getUser(id);
+      const user = await this.userService.getUser(id);
+      response.status(200).json(user);
     } catch (error) {
       console.error("Error get user:", error);
       response.status(500).json({ message: "Unable to get user." });
@@ -43,7 +44,11 @@ export class UserController {
 
   public async getUsers(request: Request, response: Response) {
     try {
-      await this.userService.getUsers();
-    } catch (error) {}
+      const users = await this.userService.getUsers();
+      response.status(200).json(users);
+    } catch (error) {
+      console.error("Error get users:", error);
+      response.status(500).json({ message: "Unable to get users." });
+    }
   }
 }

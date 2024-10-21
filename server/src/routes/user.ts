@@ -13,7 +13,7 @@ try {
   router.get("/", (request: Request, response: Response) => {
     controller.getUsers(request, response);
   });
-  router.get("/:tg_id", (request: Request, response: Response) => {
+  router.get("/:id", (request: Request, response: Response) => {
     controller.getUser(request, response);
   });
   router.post("/", (request: Request, response: Response) => {
