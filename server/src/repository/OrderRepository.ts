@@ -1,22 +1,28 @@
-import { IOrderRepository } from "src/interfaces/repository/IOrderRepository";
+import { IRepository } from "src/interfaces/IRepository";
 import Repository from "./Repository";
 import { injectable } from "inversify";
+import { $Enums, Order } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
+import { OrderDTO } from "./DTOs/OrderDTO";
 
 @injectable()
 export default class OrderRepository
   extends Repository
-  implements IOrderRepository
+  implements IRepository<Order, OrderDTO>
 {
-  create() {
+  create(DTO: OrderDTO): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  changeStatus() {
+  get(id: number): Promise<Order> {
     throw new Error("Method not implemented.");
   }
-  get() {
+  list(fields?: any): Promise<Order[]> {
     throw new Error("Method not implemented.");
   }
-  all() {
+  update(DTO: OrderDTO, id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

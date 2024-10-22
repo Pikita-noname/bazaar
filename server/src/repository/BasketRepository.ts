@@ -1,22 +1,27 @@
 import { injectable } from "inversify";
 import Repository from "./Repository";
-import { IBasketRepository } from "src/interfaces/repository/IBasketRepository";
+import { IRepository } from "src/interfaces/IRepository";
+import { Basket } from "src/models/Basket";
+import { BasketDTO } from "./DTOs/BasketDTO";
 
 @injectable()
 export default class BasketRepository
   extends Repository
-  implements IBasketRepository
+  implements IRepository<Basket, BasketDTO>
 {
-  get() {
+  create(DTO: BasketDTO): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  add() {
+  get(id: number): Promise<Basket> {
     throw new Error("Method not implemented.");
   }
-  remove() {
+  list(fields?: any): Promise<Basket[]> {
     throw new Error("Method not implemented.");
   }
-  delete() {
+  update(DTO: BasketDTO, id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

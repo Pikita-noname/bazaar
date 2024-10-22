@@ -1,5 +1,4 @@
 import { $Enums } from "@prisma/client";
-import { UserRole } from "../enums/userRoles";
 
 export class User {
   constructor(

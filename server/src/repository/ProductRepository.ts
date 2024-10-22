@@ -1,25 +1,79 @@
 import { injectable } from "inversify";
 import Repository from "./Repository";
-import { IProductRepository } from "src/interfaces/repository/IProductRepository";
+import { Product } from "src/models/Product";
+import { ProductDTO } from "./DTOs/createProductDTO";
+import { IRepository } from "src/interfaces/IRepository";
 
 @injectable()
 export default class ProductRepository
   extends Repository
-  implements IProductRepository
+  implements IRepository<Product, ProductDTO>
 {
-  get() {
-    throw new Error("Method not implemented.");
+  async update(DTO: ProductDTO, id: number): Promise<void> {
+    await this.orm.product.update({
+      data: DTO,
+      where: { id },
+    });
   }
-  add() {
-    throw new Error("Method not implemented.");
+  async create(DTO: ProductDTO): Promise<void> {
+    await this.orm.product.create({ data: DTO });
   }
-  remove() {
-    throw new Error("Method not implemented.");
+
+  async all(): Promise<Product[]> {
+    const products = await this.orm.product.findMany();
+
+    return products.map((product) => {
+      return new Product(
+        product.id,
+        product.name,
+        product.description,
+        product.price,
+        product.imageUrl,
+        product.stock,
+        product.categoryId,
+        product.createdAt,
+        product.updatedAt
+      );
+    });
   }
-  delete() {
-    throw new Error("Method not implemented.");
+
+  async get(id: number) {
+    const product = await this.orm.product.findUnique({ where: { id } });
+
+    const result = new Product(
+      product.id,
+      product.name,
+      product.description,
+      product.price,
+      product.imageUrl,
+      product.stock,
+      product.categoryId,
+      product.createdAt,
+      product.updatedAt
+    );
+
+    return result;
   }
-  all() {
-    throw new Error("Method not implemented.");
+
+  async delete(id: number): Promise<void> {
+    await this.orm.product.delete({ where: { id } });
+  }
+
+  async list(fields: any): Promise<Product[]> {
+    const products = await this.orm.product.findMany({ where: fields });
+
+    return products.map((product) => {
+      return new Product(
+        product.id,
+        product.name,
+        product.description,
+        product.price,
+        product.imageUrl,
+        product.stock,
+        product.categoryId,
+        product.createdAt,
+        product.updatedAt
+      );
+    });
   }
 }
