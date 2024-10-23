@@ -10,16 +10,19 @@ export class UserService implements IUserService {
     @inject("UserRepository")
     private userRepository: IRepository<User, AddUserDTO>
   ) {}
-
-  public async createUser(fields: AddUserDTO): Promise<void> {
-    return await this.userRepository.create(fields);
+  async getAll(): Promise<User[]> {
+    return await this.userRepository.list();
   }
-
-  public async getUser(id: number): Promise<User> {
+  async getById(id: number): Promise<User> {
     return await this.userRepository.get(id);
   }
-
-  public async getUsers(): Promise<User[]> {
-    return await this.userRepository.list();
+  delete(id: number): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+  async create(DTO: AddUserDTO): Promise<void> {
+    await this.userRepository.create(DTO);
+  }
+  update(id: number, DTO: AddUserDTO): Promise<void> {
+    throw new Error("Method not implemented.");
   }
 }

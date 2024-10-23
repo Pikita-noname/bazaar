@@ -18,7 +18,7 @@ export class UserController {
           .json({ message: "Telegram username is required." });
       }
 
-      await this.userService.createUser(new AddUserDTO(tg, UserRole.CUSTOMER));
+      await this.userService.create(new AddUserDTO(tg, UserRole.CUSTOMER));
       response.status(200).send();
     } catch (error) {
       console.error("Error creating user:", error);
@@ -34,7 +34,7 @@ export class UserController {
         return response.status(400).json({ message: "id must be a number" });
       }
 
-      const user = await this.userService.getUser(id);
+      const user = await this.userService.getById(id);
       response.status(200).json(user);
     } catch (error) {
       console.error("Error get user:", error);
@@ -44,7 +44,7 @@ export class UserController {
 
   public async getUsers(request: Request, response: Response) {
     try {
-      const users = await this.userService.getUsers();
+      const users = await this.userService.getAll();
       response.status(200).json(users);
     } catch (error) {
       console.error("Error get users:", error);

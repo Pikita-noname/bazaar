@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import Repository from "./Repository";
-import { Product } from "src/models/Product";
-import { ProductDTO } from "./DTOs/createProductDTO";
-import { IRepository } from "src/interfaces/IRepository";
+import { Product } from "../models/Product";
+import { ProductDTO } from "./DTOs/ProductDTO";
+import { IRepository } from "../interfaces/IRepository";
 
 @injectable()
 export default class ProductRepository
@@ -19,28 +19,10 @@ export default class ProductRepository
     await this.orm.product.create({ data: DTO });
   }
 
-  async all(): Promise<Product[]> {
-    const products = await this.orm.product.findMany();
-
-    return products.map((product) => {
-      return new Product(
-        product.id,
-        product.name,
-        product.description,
-        product.price,
-        product.imageUrl,
-        product.stock,
-        product.categoryId,
-        product.createdAt,
-        product.updatedAt
-      );
-    });
-  }
-
   async get(id: number) {
     const product = await this.orm.product.findUnique({ where: { id } });
 
-    const result = new Product(
+    return new Product(
       product.id,
       product.name,
       product.description,
@@ -51,15 +33,14 @@ export default class ProductRepository
       product.createdAt,
       product.updatedAt
     );
-
-    return result;
   }
 
   async delete(id: number): Promise<void> {
     await this.orm.product.delete({ where: { id } });
   }
 
-  async list(fields: any): Promise<Product[]> {
+  async list(fields?: any): Promise<Product[]> {
+    fields = fields || {};
     const products = await this.orm.product.findMany({ where: fields });
 
     return products.map((product) => {

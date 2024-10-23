@@ -19,7 +19,7 @@ export default class UserRepository
     await this.orm.user.create({ data: fields });
   }
 
-  public async get(id: number): Promise<User> {
+  public async get(id: number): Promise<User | null> {
     const user = await this.orm.user.findUnique({ where: { id } });
 
     return user;
