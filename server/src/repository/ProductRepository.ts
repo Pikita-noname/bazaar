@@ -9,10 +9,10 @@ export default class ProductRepository
   extends Repository
   implements IRepository<Product, ProductDTO>
 {
-  async update(DTO: ProductDTO, id: number): Promise<void> {
+  async update(product: Product): Promise<void> {
     await this.orm.product.update({
-      data: DTO,
-      where: { id },
+      data: product,
+      where: { id: product.id },
     });
   }
   async create(DTO: ProductDTO): Promise<void> {

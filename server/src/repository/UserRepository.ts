@@ -1,4 +1,4 @@
-import { AddUserDTO } from "./DTOs/addUserDTO";
+import { UserDTO } from "./DTOs/UserDTO";
 import { injectable } from "inversify";
 import Repository from "./Repository";
 import { User } from "../models/User";
@@ -7,15 +7,15 @@ import { IRepository } from "src/interfaces/IRepository";
 @injectable()
 export default class UserRepository
   extends Repository
-  implements IRepository<User, AddUserDTO>
+  implements IRepository<User, UserDTO>
 {
-  update(DTO: AddUserDTO, id: number): Promise<void> {
+  update(user: User): Promise<void> {
     throw new Error("Method not implemented.");
   }
   delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  public async create(fields: AddUserDTO): Promise<void> {
+  public async create(fields: UserDTO): Promise<void> {
     await this.orm.user.create({ data: fields });
   }
 

@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { IUserService } from "../interfaces/service/IUserService";
-import { AddUserDTO } from "../repository/DTOs/addUserDTO";
+import { UserDTO } from "../repository/DTOs/UserDTO";
 import { User } from "src/models/User";
 import { IRepository } from "src/interfaces/IRepository";
 
@@ -8,7 +8,7 @@ import { IRepository } from "src/interfaces/IRepository";
 export class UserService implements IUserService {
   constructor(
     @inject("UserRepository")
-    private userRepository: IRepository<User, AddUserDTO>
+    private userRepository: IRepository<User, UserDTO>
   ) {}
   async getAll(): Promise<User[]> {
     return await this.userRepository.list();
@@ -19,10 +19,10 @@ export class UserService implements IUserService {
   delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  async create(DTO: AddUserDTO): Promise<void> {
+  async create(DTO: UserDTO): Promise<void> {
     await this.userRepository.create(DTO);
   }
-  update(id: number, DTO: AddUserDTO): Promise<void> {
+  update(user: User): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

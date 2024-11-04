@@ -1,24 +1,16 @@
 import express, { Request, Response } from "express";
 import { inject, injectable } from "inversify";
-import { AddUserDTO } from "../repository/DTOs/addUserDTO";
+import { UserDTO } from "../repository/DTOs/UserDTO";
 import { IUserService } from "../interfaces/service/IUserService";
 import { UserRole } from "../enums/userRoles";
 
 @injectable()
 export class UserController {
-  constructor(@inject("IUserService") private userService: IUserService) {}
+  constructor(@inject("UserService") private userService: IUserService) {}
 
   public async createUser(request: Request, response: Response) {
     try {
-      const { tg } = request.body;
-
-      if (!tg) {
-        return response
-          .status(400)
-          .json({ message: "Telegram username is required." });
-      }
-
-      await this.userService.create(new AddUserDTO(tg, UserRole.CUSTOMER));
+      await this.userService.create(new UserDTO(request.body));
       response.status(200).send();
     } catch (error) {
       console.error("Error creating user:", error);

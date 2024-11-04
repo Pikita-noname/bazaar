@@ -22,7 +22,7 @@ export class ProductService implements IProductService {
   async create(DTO: ProductDTO): Promise<void> {
     return await this.productRepository.create(DTO);
   }
-  async update(id: number, DTO: ProductDTO): Promise<void> {
-    return await this.productRepository.update(DTO, id);
+  async update(product: Product): Promise<void> {
+    return await this.productRepository.update(product);
   }
 }

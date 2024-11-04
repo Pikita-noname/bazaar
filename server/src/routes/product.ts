@@ -1,6 +1,8 @@
 import express, { Request, Response } from "express";
 import { ProductController } from "../controllers/ProductController";
 import { container } from "../inversify.config";
+import { validationMiddleware } from "../helpers/validationMiddleware";
+import { ProductDTO } from "../repository/DTOs/ProductDTO";
 
 let router = express.Router();
 
@@ -13,9 +15,13 @@ try {
   router.get("/:productId", (request: Request, response: Response) => {
     controller.get(request, response);
   });
-  router.post("/", (request: Request, response: Response) => {
-    controller.create(request, response);
-  });
+  router.post(
+    "/",
+    validationMiddleware(ProductDTO),
+    (request: Request, response: Response) => {
+      controller.create(request, response);
+    }
+  );
   router.post("/:productId", (request: Request, response: Response) => {
     response.send("by NDK");
   });

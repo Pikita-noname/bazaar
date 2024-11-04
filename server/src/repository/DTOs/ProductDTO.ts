@@ -1,10 +1,35 @@
+import {
+  IsString,
+  IsEnum,
+  IsInt,
+  IsPositive,
+  IsNumber,
+  IsUrl,
+} from "class-validator";
+
 export class ProductDTO {
-  constructor(
-    public name: string,
-    public description: string,
-    public price: number,
-    public imageUrl: string,
-    public stock: number,
-    public categoryId: number
-  ) {}
+  @IsString()
+  public name: string;
+
+  @IsString()
+  public description: string;
+
+  @IsNumber()
+  @IsPositive()
+  public price: number;
+
+  @IsUrl()
+  public imageUrl: string;
+
+  @IsInt()
+  @IsPositive()
+  public stock: number;
+
+  @IsInt()
+  @IsPositive()
+  public categoryId: number;
+
+  constructor(data: Partial<ProductDTO>) {
+    Object.assign(this, data);
+  }
 }

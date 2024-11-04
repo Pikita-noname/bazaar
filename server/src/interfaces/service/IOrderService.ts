@@ -1,7 +1,7 @@
-import { AddUserDTO } from "../../repository/DTOs/addUserDTO";
+import { UserDTO } from "../../repository/DTOs/UserDTO";
 
 export interface IOrderService {
-  createFromBasket();
+  createFromCart();
   getOrderbyId();
   getOrdersByUser();
 }

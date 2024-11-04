@@ -8,20 +8,15 @@ export class ProductController {
   constructor(@inject("ProductService") private userService: IProductService) {}
 
   async create(request: Request, response: Response): Promise<Response> {
-    const data = request.body;
+    const product = new ProductDTO(request.body);
 
-    await this.userService.create(
-      new ProductDTO(
-        data.name,
-        data.description,
-        data.price,
-        data.imageUrl,
-        data.stock,
-        data.categoryId
-      )
-    );
-
-    return response.status(200);
+    try {
+      await this.userService.create(product);
+      return response.status(200).send();
+    } catch (error) {
+      console.error("Error creating product:", error);
+      response.status(500).json({ message: "Unable to create product." });
+    }
   }
 
   async get(request: Request, response: Response): Promise<Response> {

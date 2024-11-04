@@ -3,7 +3,7 @@ import cors from "cors";
 import "reflect-metadata";
 import dotenv from "dotenv";
 
-import basketRouter from "./routes/basket";
+import cartRouter from "./routes/cart";
 import orderRouter from "./routes/order";
 import userRouter from "./routes/user";
 import reviewRouter from "./routes/review";
@@ -17,7 +17,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-app.use("/basket", basketRouter);
+app.use("/cart", cartRouter);
 app.use("/order", orderRouter);
 app.use("/user", userRouter);
 app.use("/review", reviewRouter);

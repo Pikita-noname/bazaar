@@ -1,5 +1,5 @@
 import { User } from "src/models/User";
-import { AddUserDTO } from "../../repository/DTOs/addUserDTO";
+import { UserDTO } from "../../repository/DTOs/UserDTO";
 import { IService } from "./IService";
 
-export interface IUserService extends IService<User, AddUserDTO> {}
+export interface IUserService extends IService<User, UserDTO> {}

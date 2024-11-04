@@ -1,5 +1,5 @@
 import { ProductDTO } from "src/repository/DTOs/ProductDTO";
-import { AddUserDTO } from "../../repository/DTOs/addUserDTO";
+import { UserDTO } from "../../repository/DTOs/UserDTO";
 import { IService } from "./IService";
 import { Product } from "src/models/Product";
 

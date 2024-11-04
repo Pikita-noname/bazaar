@@ -19,7 +19,7 @@ export default class OrderRepository
   list(fields?: any): Promise<Order[]> {
     throw new Error("Method not implemented.");
   }
-  update(DTO: OrderDTO, id: number): Promise<void> {
+  update(model: Order): Promise<void> {
     throw new Error("Method not implemented.");
   }
   delete(id: number): Promise<void> {
