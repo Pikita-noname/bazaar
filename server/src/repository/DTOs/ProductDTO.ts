@@ -1,6 +1,5 @@
 import {
   IsString,
-  IsEnum,
   IsInt,
   IsPositive,
   IsNumber,

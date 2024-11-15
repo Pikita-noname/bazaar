@@ -1,9 +1,11 @@
+import { OrderStatus } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
+
 export class Order {
-  constructor(
-    public id: number,
-    public userId: number,
-    public totalPrice: number,
-    public createdAt: Date,
-    public updatedAt: Date
-  ) {}
+  id: number;
+  userId: number;
+  totalPrice: Decimal;
+  status: OrderStatus;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -1,10 +1,17 @@
-import { IsString, IsEnum, IsNotEmpty } from "class-validator";
+import { IsString, IsEnum, IsNotEmpty, IsNumber } from "class-validator";
 import { UserRole } from "../../enums/userRoles";
 
 export class UserDTO {
   @IsNotEmpty()
+  @IsNumber()
+  tgId: number;
+
+  @IsNotEmpty()
   @IsString()
-  tg: string;
+  name: string
+  @IsNotEmpty()
+  @IsString()
+  username: string
 
   @IsEnum(UserRole)
   role: UserRole = UserRole.CUSTOMER;

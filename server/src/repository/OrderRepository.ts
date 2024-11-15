@@ -1,28 +1,44 @@
 import { IRepository } from "src/interfaces/IRepository";
 import Repository from "./Repository";
 import { injectable } from "inversify";
-import { $Enums, Order } from "@prisma/client";
+import { $Enums } from "@prisma/client";
 import { Decimal } from "@prisma/client/runtime/library";
 import { OrderDTO } from "./DTOs/OrderDTO";
+import { Order } from "../models/Order";
 
 @injectable()
 export default class OrderRepository
   extends Repository
   implements IRepository<Order, OrderDTO>
 {
-  create(DTO: OrderDTO): Promise<void> {
-    throw new Error("Method not implemented.");
+  async create(DTO: OrderDTO): Promise<void> {
+    await this.orm.order.create({
+      data: {
+        ...DTO,
+        orderItems: {
+          create: DTO.orderItems,
+        },
+      },
+    });
   }
-  get(id: number): Promise<Order> {
-    throw new Error("Method not implemented.");
+
+  async get(id: number): Promise<Order> {
+    return this.orm.order.findUnique({where: {id}});
   }
-  list(fields?: any): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+  
+  async list(fields?: any): Promise<Order[]> {
+    fields = fields || {};
+    return this.orm.order.findMany({where: fields});
   }
-  update(model: Order): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async update(model: Order): Promise<void> {
+    this.orm.order.update({
+      data: model,
+      where: { id: model.id },
+    });
   }
-  delete(id: number): Promise<void> {
+
+  async delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

@@ -4,8 +4,8 @@ import { IRepository } from "src/interfaces/IRepository";
 import { CartDTO } from "./DTOs/CartDTO";
 import { Cart } from "../models/Cart";
 import { IRepositoryItems } from "../interfaces/IRepositoryItems";
-import { CartItem } from "@prisma/client";
 import { CartItemDTO } from "./DTOs/CartItemDTO";
+import { CartItem } from "../models/CartItem";
 
 @injectable()
 export default class CartRepository
@@ -28,7 +28,12 @@ export default class CartRepository
   }
 
   async get(id: number): Promise<Cart> {
-    return await this.orm.cart.findUnique({ where: { id } });
+    return await this.orm.cart.findUnique({
+      where: { id },
+      include: {
+        cartItems: true,
+      },
+    });
   }
 
   async list(fields?: any): Promise<Cart[]> {
@@ -44,7 +49,7 @@ export default class CartRepository
   }
 
   async update(basket: Cart): Promise<void> {
-    await this.orm.cart.update({ data: basket, where: { id: basket.id } });
+    
   }
 
   async delete(id: number): Promise<void> {

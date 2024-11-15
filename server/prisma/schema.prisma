@@ -15,7 +15,9 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement()) 
-  tg        String    @unique
+  tgId      Int       @unique
+  name      String
+  username  String
   role      UserRole  @default(CUSTOMER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -98,6 +100,7 @@ model CartItem {
   productId Int
   product   Product  @relation(fields: [productId], references: [id])
   quantity  Int      @default(1)
+  price     Decimal  @default(0.0)
   @@unique([cartId, productId])
 }
 
