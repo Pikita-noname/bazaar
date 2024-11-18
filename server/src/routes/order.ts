@@ -1,9 +1,12 @@
 import express, { Request, Response } from "express";
+import { container } from "../inversify.config";
+import { OrderController } from "../controllers/OrderCotroller";
 
 let router = express.Router();
 
 try {
-  
+  const controller = container.get<OrderController>(OrderController);
+
   router.get("/", (request: Request, response: Response) => {
     response.send("by NDK");
   });
@@ -11,7 +14,7 @@ try {
     response.send("by NDK");
   });
   router.post("/", (request: Request, response: Response) => {
-    response.send("by NDK");
+    controller.createOrder(request, response);
   });
   router.post("/:productId", (request: Request, response: Response) => {
     response.send("by NDK");
@@ -25,10 +28,8 @@ try {
   router.delete("/:productId", (request: Request, response: Response) => {
     response.send("by NDK");
   });
-
 } catch (error) {
   console.error("Failed to retrieve UserController from the container:", error);
 }
-
 
 export default router;

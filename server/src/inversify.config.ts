@@ -18,6 +18,12 @@ import { Cart } from "./models/Cart";
 import { CartDTO } from "./repository/DTOs/CartDTO";
 import CartRepository from "./repository/CartRepository";
 import { CartController } from "./controllers/CartCotroller";
+import { OrderController } from "./controllers/OrderCotroller";
+import { IOrderService } from "./interfaces/service/IOrderService";
+import { OrderService } from "./services/Order.Service";
+import { Order } from "./models/Order";
+import { OrderDTO } from "./repository/DTOs/OrderDTO";
+import OrderRepository from "./repository/OrderRepository";
 
 const container = new Container();
 
@@ -40,5 +46,13 @@ container.bind<ICartService>("CartService").to(CartService);
 container.bind<IRepository<Cart, CartDTO>>("CartRepository").to(CartRepository);
 
 container.bind<CartController>(CartController).toSelf();
+
+container.bind<OrderController>(OrderController).toSelf();
+
+container.bind<IOrderService>("OrderService").to(OrderService);
+
+container
+  .bind<IRepository<Order, OrderDTO>>("OrderRepository")
+  .to(OrderRepository);
 
 export { container };

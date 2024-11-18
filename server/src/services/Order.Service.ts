@@ -1,20 +1,23 @@
+import { inject, injectable } from "inversify";
 import { IOrderService } from "../interfaces/service/IOrderService";
-import { Cart } from "../models/Cart";
 import { Order } from "../models/Order";
-import { User } from "../models/User";
-import CartRepository from "../repository/CartRepository";
 import { OrderDTO } from "../repository/DTOs/OrderDTO";
 import { OrderItemDTO } from "../repository/DTOs/OrderItemDTO";
-import OrderRepository from "../repository/OrderRepository";
+import { IRepository } from "../interfaces/IRepository";
+import { CartDTO } from "../repository/DTOs/CartDTO";
+import { Cart } from "../models/Cart";
 
+@injectable()
 export class OrderService implements IOrderService {
   constructor(
-    private orderRepository: OrderRepository,
-    private cartRepository: CartRepository
+    @inject("OrderRepository") private orderRepository: IRepository<Order, OrderDTO>,
+    @inject("CartRepository") private cartRepository: IRepository<Cart, CartDTO>,
   ) {}
-  getOrdersByUser(user: User): Promise<Order[]> {
-    return this.orderRepository.list(user.id);
+
+  getOrdersByUser(userId: number): Promise<Order[]> {
+    return this.orderRepository.list({userId});
   }
+
   async createFromCart(cartId: number) {
     const cart = await this.cartRepository.get(cartId);
 
